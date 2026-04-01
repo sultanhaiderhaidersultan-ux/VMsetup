@@ -1,14 +1,17 @@
---------------whole guide for JS Project-------------------------
+--------------WHOLE GUIDE FOR JS PROJECT-------------------------
+
 # IBM MQ + ACE 13 Production Setup Guide (Clean & Repeatable)
 
->>>> Purpose
+> > > > Purpose
 
-This document is a clean, step-by-step guide to install and configure IBM MQ and ACE 13 on a new VM for production use.
-Follow the sequence exactly to avoid permission issues, broken environments, or rework.
+This document provides a clean, production-ready, copy-paste guide to install and configure IBM MQ and ACE 13 on a new VM.
+All steps are corrected based on staging learnings (permissions, ownership, truststore handling).
+
+Follow the sequence exactly to avoid permission issues, readonly conflicts, or runtime failures.
 
 ---
 
->>>> Overview (What you are doing)
+> > > > Overview (What you are doing)
 
 1. Prepare OS and dependencies
 2. Create required users (mqm, aceadmin)
@@ -19,24 +22,21 @@ Follow the sequence exactly to avoid permission issues, broken environments, or 
 7. Create Integration Node (ACENODE)
 8. Create Integration Servers (execution groups)
 9. Deploy BAR files
-10. Configure security (listener, truststore)
+10. Configure truststore (fixed approach)
 
 ---
 
->>>> Step 1 — OS Preparation (Run as root)
+> > > > Step 1 — OS Preparation (Run as root)
 
- 
 dnf update -y
 dnf install -y rsync tar gzip open-vm-tools
 systemctl enable --now vmtoolsd
 reboot
- 
 
 ---
 
->>>> Step 2 — Create Users & Groups (Run as root)
+> > > > Step 2 — Create Users & Groups (Run as root)
 
- 
 groupadd mqm
 groupadd mqbrkrs
 groupadd aceadmin
@@ -49,13 +49,11 @@ passwd aceadmin
 
 usermod -aG mqm,mqbrkrs aceadmin
 usermod -aG mqbrkrs mqm
- 
 
 ---
 
->>>> Step 3 — Install IBM MQ (Run as root)
+> > > > Step 3 — Install IBM MQ (Run as root)
 
- 
 tar -xvf 9.4.0.5-IBM-MQ-LinuxX64.tar.gz
 cd MQServer/
 
@@ -63,186 +61,169 @@ cd MQServer/
 rpm -ivh *.rpm
 
 /opt/mqm/bin/setmqinst -i -p /opt/mqm
- 
 
 Verify:
 
- 
 dspmq
- 
 
 ---
 
->>>>Step 4 — Setup MQ Environment (Run as mqm & aceadmin)
+> > > > Step 4 — Setup MQ Environment (Run as mqm & aceadmin)
 
- 
 echo "source /opt/mqm/bin/setmqenv -s" >> ~/.bashrc
 source ~/.bashrc
- 
 
 ---
 
->>>> Step 5 — Create Queue Manager (Run as mqm)
+> > > > Step 5 — Create Queue Manager (Run as mqm)
 
- 
 su - mqm
 
 crtmqm ACEQMGR
 strmqm ACEQMGR
 dspmq
- 
 
 ---
 
->>>> Step 6 — Apply MQ Objects (Run as root then mqm)
+> > > > Step 6 — Apply MQ Objects (Run as root then mqm)
 
-Copy MQSC file:
-
- 
 cp ACEQMGR_objects.mqsc /opt/mqm/mqscfiles/
 chown mqm:mqm /opt/mqm/mqscfiles/ACEQMGR_objects.mqsc
 chmod 644 /opt/mqm/mqscfiles/ACEQMGR_objects.mqsc
- 
 
-Apply config:
-
- 
 su - mqm
 runmqsc ACEQMGR < /opt/mqm/mqscfiles/ACEQMGR_objects.mqsc
- 
 
 ---
 
->>>> Step 7 — Setup Listener & Permissions (Run as mqm)
+> > > > Step 7 — Setup Listener & Permissions (Run as mqm)
 
- 
 echo "DEFINE LISTENER(ACE.LISTENER) TRPTYPE(TCP) PORT(1414) CONTROL(QMGR)" | runmqsc ACEQMGR
 echo "START LISTENER(ACE.LISTENER)" | runmqsc ACEQMGR
- 
 
-Grant ACE access:
-
- 
 setmqaut -m ACEQMGR -t qmgr -p aceadmin +connect +inq +dsp
 echo "REFRESH SECURITY TYPE(CONNAUTH)" | runmqsc ACEQMGR
- 
 
 ---
 
->>>> Step 8 — Install ACE 13 (Run as root)
+> > > > Step 8 — Install ACE 13 (Run as root)
 
- 
 mkdir -p /opt/IBM/ACE-13
 cd /opt/IBM/ACE-13
 
 tar -xvzf 13.0-ACE-LINUXX64-13.0.4.1.tar.gz --strip-components=1
 
 ./ace make registry global accept license silently
- 
 
-Fix permissions:
-
- 
 chown -R aceadmin:aceadmin /opt/IBM/ACE-13
+
 mkdir -p /var/mqsi
 chown -R aceadmin:aceadmin /var/mqsi
 chmod -R 775 /var/mqsi
- 
 
 ---
 
->>>> Step 9 — Setup ACE Environment (Run as aceadmin)
+> > > > Step 9 — Setup ACE Environment (Run as aceadmin)
 
- 
 echo "source /opt/IBM/ACE-13/server/bin/mqsiprofile" >> ~/.bashrc
 source ~/.bashrc
- 
 
 ---
 
->>>> Step 10 — Create Integration Node (Run as aceadmin)
+> > > > Step 10 — Create Integration Node (Run as aceadmin)
 
- 
 mqsicreatebroker ACENODE -q ACEQMGR
 mqsistart ACENODE
 mqsilist
- 
 
 ---
 
->>>> Step 11 — Create Integration Servers
-__________________________________________________________________(*)
- 
+> > > > Step 11 — Create Integration Servers
+
 mqsicreateexecutiongroup ACENODE -e CoreAppGroup
 mqsicreateexecutiongroup ACENODE -e ISOGroup
 mqsicreateexecutiongroup ACENODE -e OFSGroup
 mqsicreateexecutiongroup ACENODE -e PSWGroup
 mqsicreateexecutiongroup ACENODE -e mpg
- 
 
 ---
 
->>>> Step 12 — Deploy Applications (BAR files)
+> > > > Step 12 — Deploy Applications (Run as aceadmin)
 
- 
 mqsideploy ACENODE -e mpg -a /home/aceadmin/BARfiles/YourApp.bar -w 240
- 
 
 ---
 
->>>> Step 13 — Truststore Configuration (Optional)
+> > > > Step 13 — Truststore Configuration (CORRECTED)
 
- 
+# Run as root (file placement)
+
 mkdir -p /opt/ace/configurations/Truststore
-mv Truststore.jks /opt/ace/configurations/Truststore
- 
+mv Truststore.jks /opt/ace/configurations/Truststore/
 
- 
-mqsichangeproperties ACENODE -e mpg -o ComIbmJVMManager \
--n truststoreFile,truststoreType,truststorePass \
+# VERY IMPORTANT — Fix ownership to match ACE runtime
+
+chown -R aceadmin:aceadmin /opt/ace/configurations
+
+# Match working system permissions
+
+find /opt/ace/configurations -type d -exec chmod 775 {} ;
+find /opt/ace/configurations -type f -exec chmod 664 {} ;
+
+# Switch to ACE user
+
+su - aceadmin
+
+# Configure truststore in ACE
+
+mqsichangeproperties ACENODE -e mpg -o ComIbmJVMManager 
+-n truststoreFile,truststoreType,truststorePass 
 -v "/opt/ace/configurations/Truststore/Truststore.jks","JKS","password"
- 
 
-Restart:
+# Restart integration node (MANDATORY)
 
- 
 mqsistop ACENODE
 mqsistart ACENODE
- 
+
+# Verify configuration
+
+mqsireportproperties ACENODE -e mpg -o ComIbmJVMManager -r
 
 ---
 
->>>> Step 14 — Final Validation
+> > > > Step 14 — Final Validation
 
- 
 dspmq
 mqsilist
 mqsilist ACENODE -e mpg
 ss -tlnp | grep 1414
- 
 
 ---
 
->>>> Important Rules (VERY IMPORTANT)
+> > > > Important Rules (VERY IMPORTANT)
 
-* mqm user → only for MQ
-* aceadmin user → only for ACE
-* NEVER run ACE commands as root
-* NEVER mix multiple ACE installations
-* Always keep ACE in `/opt/IBM/ACE-13`
-* Always keep MQ in `/opt/mqm`
+mqm user → only for MQ
+aceadmin user → only for ACE
 
----
+NEVER run ACE commands as root
+NEVER leave truststore owned by root
+ALWAYS fix ownership after copying files into /opt
 
->>>> Quick Mental Summary
-
-* MQ = messaging backbone (queues, listener, QM)
-* ACE = processing layer (flows, APIs, BAR deployment)
-* MQ must be fully working BEFORE ACE
-* ACE connects to MQ using ACEQMGR
+MQ must be fully working BEFORE ACE
+ACE connects to MQ using ACEQMGR
 
 ---
 
->>>> Done
+> > > > Quick Mental Summary
 
-System is now ready for production deployment.
+MQ = messaging backbone (queues, listener, QM)
+ACE = processing layer (flows, APIs, BAR deployment)
+
+Truststore must be readable by aceadmin
+Permissions must match working system (775/664)
+
+---
+
+> > > > Done
+
+System is now production-ready and aligned with staging baseline.
