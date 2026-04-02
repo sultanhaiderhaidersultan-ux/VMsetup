@@ -1,0 +1,162 @@
+BulkConvTFOutgoingRequest
+
+
+curl --location 'http://10.111.201.175:7081/bulkconvtfoutgoing/v1/request' \
+--header 'X-Query-String;' \
+--header 'Content-Type: application/json' \
+--data '{
+    "MTI" :"",
+    "processingCode" :"",
+    "merchantType"   :"",
+    "valueDate" :"",
+    "bankImd" :"",
+    "dateTime" :"",
+    "accountNumbers.Item[]" : [""]
+}
+'
+
+
+MPG_ValidateStatusBulk
+
+curl --location --request POST 'http://10.111.201.175:7081/api/instructions/validate/status' \
+--header 'X-Request-Id;' \
+--header 'X-Remote-Addr;' \
+--header 'Sender-Participant-Code;' \
+--header 'Content-Type: application/json'
+
+
+MPG_ValidationServiceBulk
+
+
+curl --location 'http://10.111.201.175:7081/mpg_validationservicebulk/v1/prevalidation//http://10.111.201.175:7081/mpg_validationservicebulk/v1/prevalidation' \
+--header 'Content-Type: application/json' \
+--data '{
+    "MTI" : "",
+	"batchId" : "",
+	"valueDate" : "", 
+	"bankImd" : "",
+	"merchantType" : "",
+	"dateTime" : "",
+	"instructions" : { 
+        "item" : [{ 
+            "purposeCode":"",
+            "customer" : { 
+                "identification" : {
+                    "type" : "",
+                    "value" : ""
+                }
+            } ,
+            "iban" : "" ,
+            "customerName" : "" 
+        }
+        ]}
+}'
+
+
+MPGInquiryConvensionalService
+
+
+curl --location 'http://10.111.201.175:7081/mpginquiryconvensionalservice/v1/ConvTitleFetch' \
+--header 'Content-Type: application/json' \
+--data '{
+    "MTI" : "",
+ "processingCode" : "",
+ "merchantType" : "",
+ "valueDate" : "",
+ "bankImd" : "",
+ "dateTime" : "",
+ "accountNo" : "",
+ "idtype" : "",
+ "idvalue" : ""
+}'
+
+
+
+ConvTitleFetch
+
+curl --location 'http://10.111.201.175:7081/mpginquiryconvensionalservice/v1/ConvTitleFetch' \
+--header 'Access_token: mpg#1234' \
+--header 'Content-Type: application/json' \
+--data '{
+    "MTI": "0200",
+    "processingCode": "630000",
+    "merchantType": "0098",
+    "valueDate": "20260309",
+    "bankImd": "WMBLPKKA",
+    "dateTime": "20260309132423",
+    "accountNo": "0071010110796222",
+    "idtype": "CNIC",
+    "idvalue": "4420354055687"
+}'
+
+
+MPG Management Service
+
+curl --location 'http://10.111.201.175:7081/mpg-mgmt/v1/logoff' \
+--header 'Content-Type: application/json' \
+--data '{
+    "updateDb" : "",
+    "d" : "" 
+}'
+
+
+
+MPGP2PPaymentService
+
+
+curl --location 'http://10.111.201.175:7081/mpgpaymentservice/ibft' \
+--header 'Content-Type: application/json' \
+--data '{
+    "bankImd" : "",
+    "creditorIban" : "",
+    "creditorTitle" : "",
+    "debitorIban" : "",
+    "debitorTitle" : "",
+    "messageId" : "",
+    "stan" : "",
+    "transactionAmount" : "",
+    "transactionDate" : "",
+    "transactionId" : "",
+    "transactionTime" : ""
+}'
+
+
+
+MPGValidationService/validate
+
+curl --location 'http://10.111.201.175:7081/instructions/validate' \
+--header 'X-Request-Id;' \
+--header 'Sender-Participant-Code;' \
+--header 'Content-Type: application/json' \
+--data '{
+"batchId" : "",
+"valueDate" : ""
+}'
+
+
+MPGValidationService/status
+
+curl --location --request POST 'http://10.111.201.175:7081/instructions/status' \
+--header 'X-Request-Id;' \
+--header 'Sender-Participant-Code;'
+
+
+P2MPIR
+
+curl --location 'http://10.111.201.175:7081/p2mpir/v1/paymentRequest' \
+--header 'Content-Type: application/json' \
+--data '{
+"messageId" : "",
+"transactionId" : "",
+"Creditor" : {"BIC" : ""} ,
+"Debitor" : {"BIC" : ""},
+"MsgId" : "",
+"ModeOfRTP" : "",
+"bankImd" : "",
+"BizMsgIdr" : "",
+"ReqdExecutionDateTime" : "",
+"From" : "",
+"PmtInfId" : ""
+}'
+
+
