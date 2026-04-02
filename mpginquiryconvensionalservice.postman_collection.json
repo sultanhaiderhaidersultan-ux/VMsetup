@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "0dde8475-18f0-4526-a55b-bcd8e7469d53",
+		"name": "mpginquiryconvensionalservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ConvTitleFetch",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// List of Bank IMDs\r",
+							"let banks = [\r",
+							"\"FMICFBPK\",\r",
+							"\"MUCBPKKKRTG\",\r",
+							"\"KHBLDFID\",\r",
+							"\"NBPBPKKA\",\r",
+							"\"NAYAPKKA\",\r",
+							"\"CITIPKKX\",\r",
+							"\"DUIBPKKA\",\r",
+							"\"FINCAMFB\",\r",
+							"\"SINDPKKA\",\r",
+							"\"MCIBPKKI\",\r",
+							"\"SADAPKKA\",\r",
+							"\"NMICFBPK\",\r",
+							"\"UMBLPKKA\",\r",
+							"\"WMBLPKKA\",\r",
+							"\"NRSPMFBB\",\r",
+							"\"UNILPKKARTG\",\r",
+							"\"MUCBPKKKRTG\",\r",
+							"\"ABPAPKKA\",\r",
+							"\"HABBPKKARTG\",\r",
+							"\"FAYSPKKA\",\r",
+							"\"ASCMPKKA\",\r",
+							"\"AHRBPKKA\",\r",
+							"\"MBPLPKKA\",\r",
+							"\"ICBKPKKA\",\r",
+							"\"BPUNPKKA\",\r",
+							"\"ALFHPKKA\",\r",
+							"\"BAHLPKKA\",\r",
+							"\"SCBLPKKA\",\r",
+							"\"MPBLPKKA\",\r",
+							"\"SAUDPKKA\",\r",
+							"\"KHYBPKKA\",\r",
+							"\"MEZNPKKA\",\r",
+							"\"FWOMPKKA\",\r",
+							"\"BKIPPKKA\",\r",
+							"\"TMICFBPK\",\r",
+							"\"EGIBPKKA\",\r",
+							"\"SONEPKKA\",\r",
+							"\"NBPBPKKA\",\r",
+							"\"KHBLDFID\",\r",
+							"\"JSBLPKKA\",\r",
+							"\"CDCAGRTR\",\r",
+							"\"ONELINKG\",\r",
+							"\"SBPBSCQR\",\r",
+							"\"KENUPKKA\",\r",
+							"\"NADRAPKK\",\r",
+							"\"PPAYFAST\",\r",
+							"\"GOGBPKKA\",\r",
+							"\"GOPBPKKA\",\r",
+							"\"PMRFGLPK\",\r",
+							"\"FGCDNSER\",\r",
+							"\"MSHQPKKA\",\r",
+							"\"SBPVENDRBSC\",\r",
+							"\"NCPLPKCA\",\r",
+							"\"BPUNACKA\",\r",
+							"\"GOBNPKKA\",\r",
+							"\"BKCHPKKA\",\r",
+							"\"SBPKAHRD\",\r",
+							"\"CNAAPKKA\",\r",
+							"\"GOSDPKKA\",\r",
+							"\"FBRSPKKA\"\r",
+							"];\r",
+							"\r",
+							"// get current index\r",
+							"let index = pm.collectionVariables.get(\"bankIndex\");\r",
+							"\r",
+							"if (!index) {\r",
+							"    index = 0;\r",
+							"} else {\r",
+							"    index = parseInt(index);\r",
+							"}\r",
+							"\r",
+							"// pick bank\r",
+							"let selectedBank = banks[index];\r",
+							"\r",
+							"// store bank in variable\r",
+							"pm.variables.set(\"bankImd\", selectedBank);\r",
+							"\r",
+							"// increment index\r",
+							"index++;\r",
+							"\r",
+							"// reset if reached end\r",
+							"if (index >= banks.length) {\r",
+							"    index = 0;\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"bankIndex\", index);\r",
+							"\r",
+							"console.log(\"Selected Bank:\", selectedBank);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Access_token",
+						"value": "mpg#1234",
+						"type": "default"
+					},
+					{
+						"key": "X-Requested-ID",
+						"value": "1234-ABCD-4321",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MTI\": \"0200\",\r\n    \"processingCode\": \"630000\",\r\n    \"merchantType\": \"0098\",\r\n    \"valueDate\": \"20260309\",\r\n    \"bankImd\": \"WMBLPKKA\",\r\n    \"dateTime\": \"20260309132423\",\r\n    \"accountNo\": \"0071010110796222\",\r\n    \"idtype\": \"CNIC\",\r\n    \"idvalue\": \"4420354055687\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/mpginquiryconvensionalservice/v1/ConvTitleFetch",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"mpginquiryconvensionalservice",
+						"v1",
+						"ConvTitleFetch"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "bankIndex",
+			"value": ""
+		}
+	]
+}

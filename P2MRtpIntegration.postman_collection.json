@@ -1,0 +1,32 @@
+{
+	"info": {
+		"_postman_id": "8a80589c-808b-4ea2-9bdc-7fe13809503f",
+		"name": "P2MRtpIntegration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/p2m/service/cancelrtp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://10.111.201.175/p2m/service/cancelrtp",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"path": [
+						"p2m",
+						"service",
+						"cancelrtp"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

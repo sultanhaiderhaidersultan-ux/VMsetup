@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "d10ca536-5b40-423a-bee6-4c0e8773193a",
+		"name": "P2M-DQR-PAIN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "p2m/outgoingService/initiateRTP",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function generateGuid() {\r",
+							"    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\r",
+							"        const r = Math.random() * 16 | 0,\r",
+							"              v = c === 'x' ? r : (r & 0x3 | 0x8);\r",
+							"        return v.toString(16);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"const uetr = generateGuid();\r",
+							"\r",
+							"\r",
+							"pm.environment.set(\"UETR\", uetr);\r",
+							"\r",
+							"\r",
+							"console.log(\"✅ UETR:\", uetr);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Access_token",
+						"value": "mpg123"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "57b4290f-da2e-4911-8264-09e9203e8a79",
+						"disabled": true
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"processingCode\": \"211000\",\r\n    \"merchantType\": \"0098\",\r\n    \"From\": \"JSBLPKKA\",\r\n    \"To\": \"SBPPPKKAXIPS\",\r\n    \"ModeOfRTP\": \"DQRRTP\",\r\n    \"BizMsgIdr\": \"JSBLPKKAPAIN48494743709\",\r\n    \"CreditDateTime\": \"2026-03-09T00:26:14.420\",\r\n    \"MsgId\": \"16515483183327477009|P2M\",\r\n    \"PmtInfId\": \"96943796247853657\",\r\n    \"ReqdExecutionDateTime\": \"2026-03-09T00:26:14.421\",\r\n    \"ExpiryDateTime\": \"2026-03-09T23:26:14.422\",\r\n    \"BillRefrenceNumber\": \"60215452\",\r\n    \"Debitor\": {\r\n        \"Name\": \"NOTPROVIDED\",\r\n        \"BIC\": \"NOTPROVIDED\",\r\n        \"IBAN\": \"NOTPROVIDED\",\r\n        \"InstructionID\": \"51315359434788786\",\r\n        \"EndToEndId\": \"be06cb843e6c240865df788c2eb332c4\",\r\n        \"UETR\": \"{{UETR}}\"\r\n    },\r\n    \"PaymentInstrumentType\": \"PMCT\",\r\n    \"AmountModificationAllowed\": \"false\",\r\n    \"EarlyPaymetAllowed\": \"true\",\r\n    \"GrntedPmtReqd\": \"false\",\r\n    \"Amount\": \"5\",\r\n    \"Creditor\": {\r\n        \"BIC\": \"JSBLPKKA\",\r\n        \"Name\": \"bhati general store\",\r\n        \"TerminalLabel\": \"980701860\",\r\n        \"Town\": \"Lahore\", \r\n        \"MCC\": \"5411\",\r\n        \"ALIAS\": \"PK18JSBL9999903232680092\",\r\n        \"DBA\": \"bhati general store\",\r\n        \"phoneNumber\": \"+92-3232680092\",\r\n        \"MobileNumber\": \"+92-3232680092\",\r\n        \"email\": \"payee@zindigi.pk\",\r\n        \"Dept\": \"DFS\",\r\n        \"ChannelType\": \"WEBS\",\r\n        \"Website\": \"http://prra.punjab.gov.pk\",\r\n        \"Longitude\": \"73.167891\",\r\n        \"Latitude\": \"33.617987\",\r\n        \"ChannelID\": \"400\",\r\n        \"IBAN\": \"PK18JSBL9999903232680092\",\r\n        \"purposeOfTranx\": \"5818\",\r\n        \"TAXID\": \"0705123729\",\r\n        \"contextOfTranx\": \"Digital Goods\",\r\n        \"DuePyblAmt\": \"5.0\",\r\n        \"AdjustmentAmount\": \"5.0\",\r\n        \"AdjustmentReason\": \"SCFE\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/p2m/outgoingService/initiateRTP",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"p2m",
+						"outgoingService",
+						"initiateRTP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "p2m/outgoingService/initiateRTP",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function generateRandomNumber(length) {\r",
+							"    let result = '';\r",
+							"    const characters = '0123456789';\r",
+							"    for (let i = 0; i < length; i++) {\r",
+							"        result += characters.charAt(Math.floor(Math.random() * characters.length));\r",
+							"    }\r",
+							"    return result;\r",
+							"}\r",
+							"\r",
+							"function getFormattedDateTime(offsetHours = 0) {\r",
+							"    const now = new Date();\r",
+							"    now.setHours(now.getHours() + offsetHours);\r",
+							"    return now.toISOString().replace(/\\.\\d{3}Z$/, '.000');\r",
+							"}\r",
+							"\r",
+							"function getExpiryDateTime(offsetHours = 0) {\r",
+							"    const now = new Date();\r",
+							"    now.setHours(now.getHours() + offsetHours + 1);\r",
+							"    return now.toISOString().replace(/\\.\\d{3}Z$/, '.000');\r",
+							"}\r",
+							"\r",
+							"function generateGuid() {\r",
+							"    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\r",
+							"        const r = Math.random() * 16 | 0,\r",
+							"              v = c === 'x' ? r : (r & 0x3 | 0x8);\r",
+							"        return v.toString(16);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"const timezoneOffset = +5;\r",
+							"\r",
+							"let requestBody = pm.request.body.raw;\r",
+							"let iban = \"\";\r",
+							"\r",
+							"try {\r",
+							"    let json = JSON.parse(requestBody);\r",
+							"\r",
+							"    if (json && json.Debitor && json.Debitor.IBAN) {\r",
+							"        iban = json.Debitor.IBAN;\r",
+							"        pm.environment.set(\"IBAN\", iban);\r",
+							"    } else {\r",
+							"        console.warn(\"⚠️ IBAN not found in request body.\");\r",
+							"    }\r",
+							"\r",
+							"} catch (e) {\r",
+							"    console.warn(\"⚠️ Failed to parse request body to extract IBAN:\", e);\r",
+							"}\r",
+							"\r",
+							"// --- Extract IBAN Short Code ---\r",
+							"let ibanShort = \"\";\r",
+							"\r",
+							"if (iban && iban.length >= 8) {\r",
+							"    ibanShort = iban.substring(4, 8).toUpperCase();\r",
+							"    pm.environment.set(\"IBANSHORT\", ibanShort);\r",
+							"} else {\r",
+							"    console.warn(\"⚠️ IBAN too short or missing, skipping IBANSHORT extraction.\");\r",
+							"}\r",
+							"\r",
+							"// --- BIC Lookup Map ---\r",
+							"const bicLookup = {\r",
+							"    \"FMFB\": \"FMICFBPK\",\r",
+							"    \"KHBL\": \"KHBLDFID\",\r",
+							"    \"NBPF\": \"NBPBPKKA\",\r",
+							"    \"NAYA\": \"NAYAPKKA\",\r",
+							"    \"DUIB\": \"DUIBPKKA\",\r",
+							"    \"SIND\": \"SINDPKKA\",\r",
+							"    \"MCIB\": \"MCIBPKKI\",\r",
+							"    \"UMBL\": \"UMBLPKKA\",\r",
+							"    \"JCMA\": \"WMBLPKKA\",\r",
+							"    \"UNIL\": \"UNILPKKARTG\",\r",
+							"    \"MUCB\": \"MUCBPKKKRTG\",\r",
+							"    \"ABPA\": \"ABPAPKKA\",\r",
+							"    \"HABB\": \"HABBPKKARTG\",\r",
+							"    \"FAYS\": \"FAYSPKKA\",\r",
+							"    \"ASCM\": \"ASCMPKKA\",\r",
+							"    \"SUMB\": \"AHRBPKKA\",\r",
+							"    \"SAMB\": \"MBPLPKKA\",\r",
+							"    \"BPUN\": \"BPUNPKKA\",\r",
+							"    \"ALFH\": \"ALFHPKKA\",\r",
+							"    \"BAHL\": \"BAHLPKKA\",\r",
+							"    \"SCBL\": \"SCBLPKKA\",\r",
+							"    \"MPBL\": \"MPBLPKKA\",\r",
+							"    \"SAUD\": \"SAUDPKKA\",\r",
+							"    \"KHYB\": \"KHYBPKKA\",\r",
+							"    \"MEZN\": \"MEZNPKKA\",\r",
+							"    \"FWOM\": \"FWOMPKKA\",\r",
+							"    \"BKIP\": \"BKIPPKKA\",\r",
+							"    \"TMFB\": \"TMICFBPK\",\r",
+							"    \"AIIN\": \"EGIBPKKA\",\r",
+							"    \"SONE\": \"SONEPKKA\",\r",
+							"    \"NBPA\": \"NBPBPKKA\",\r",
+							"    \"JSBL\": \"JSBLPKKA\",\r",
+							"    \"SADA\": \"SADAPKKA\",\r",
+							"    \"CDCP\": \"CDCAGRTR\",\r",
+							"    \"CDNS\": \"FGCDNSER\",\r",
+							"    \"ONEL\": \"ONELINKG\",\r",
+							"    \"SBPD\": \"PMRFGLPK\",\r",
+							"    \"NULL\": \"PPAYFAST\"\r",
+							"};\r",
+							"\r",
+							"// --- Determine BIC based on IBAN short ---\r",
+							"let bicValue = bicLookup[ibanShort] || \"UNKNOWN\";\r",
+							"pm.environment.set(\"BIC\", bicValue);\r",
+							"\r",
+							"// --- Generate IDs and Dates ---\r",
+							"const currentDateTime = getFormattedDateTime(timezoneOffset);\r",
+							"const expiryDateTime = getExpiryDateTime(timezoneOffset);\r",
+							"const bizMsgIdr = `JSBLPKKAPAIN013${generateRandomNumber(12)}`;\r",
+							"const msgId = `${generateRandomNumber(20)}|P2M`;\r",
+							"const pmtInfId = generateRandomNumber(15);\r",
+							"const billRefrenceNumber = generateRandomNumber(13);\r",
+							"const instructionID = generateRandomNumber(15);\r",
+							"const endToEndId = generateRandomNumber(22);\r",
+							"const uetr = generateGuid();\r",
+							"\r",
+							"// --- Store in Environment ---\r",
+							"pm.environment.set(\"BizMsgIdr\", bizMsgIdr);\r",
+							"pm.environment.set(\"CreditDateTime\", currentDateTime);\r",
+							"pm.environment.set(\"MsgId\", msgId);\r",
+							"pm.environment.set(\"PmtInfId\", pmtInfId);\r",
+							"pm.environment.set(\"ReqdExecutionDateTime\", currentDateTime);\r",
+							"pm.environment.set(\"ExpiryDateTime\", expiryDateTime);\r",
+							"pm.environment.set(\"BillRefrenceNumber\", billRefrenceNumber);\r",
+							"pm.environment.set(\"InstructionID\", instructionID);\r",
+							"pm.environment.set(\"EndToEndId\", endToEndId);\r",
+							"pm.environment.set(\"UETR\", uetr);\r",
+							"\r",
+							"// --- Logs ---\r",
+							"/*\r",
+							"console.log(\"✅ IBAN:\", iban);\r",
+							"console.log(\"✅ IBANSHORT:\", ibanShort);\r",
+							"console.log(\"✅ BIC:\", bicValue);\r",
+							"console.log(\"✅ BizMsgIdr:\", bizMsgIdr);\r",
+							"console.log(\"✅ MsgId:\", msgId);\r",
+							"console.log(\"✅ PmtInfId:\", pmtInfId);\r",
+							"console.log(\"✅ UETR:\", uetr);\r",
+							"console.log(\"✅ STAN:\", uetr);\r",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"disabled": true
+					},
+					{
+						"key": "Access_token",
+						"value": "m@43pg190acT"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"disabled": true
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Host",
+						"value": "s-iib-cluster2.jsbl.com:7845"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "0c882417-1aff-4a5d-bef1-b6c89e404f81,7aa596a1-cde4-4459-9b12-38f75b6e35de"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.15.0"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "content-length",
+						"value": "1689"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"processingCode\": \"211000\",\n\t\"merchantType\": \"0098\",\n\t\"From\": \"JSBLPKKA\",\n\t\"To\": \"SBPPPKKAXIPS\",\n\t\"ModeOfRTP\": \"DQRRTP\",\n\t\"BizMsgIdr\": \"JSBLPKKAPAIN484947437785\",\n\t\"CreditDateTime\": \"2024-12-03T00:26:14.420\",\n\t\"MsgId\": \"16515483183327477525|P2M\",\n\t\"PmtInfId\": \"96943796247853655\",\n\t\"ReqdExecutionDateTime\": \"2024-12-03T00:26:14.421\",\n\t\"ExpiryDateTime\": \"2024-12-03T23:26:14.422\",\n\t\"BillRefrenceNumber\": \"60215452\",\n\t\"Debitor\": {\n\t\t\"Name\": \"NOTPROVIDED\",\n\t\t\"BIC\": \"NOTPROVIDED\",\n\t\t\"IBAN\": \"NOTPROVIDED\",\n\t\t\"InstructionID\": \"51315359434788785\",\n\t\t\"EndToEndId\": \"be06cb843e6c240865df788c2eb332c4\",\n\t\t\"UETR\": \"795d67e0-56c9-4b90-8c1f-3bd970a5a28e\"\n\t},\n\t\"PaymentInstrumentType\": \"PMCT\",\n\t\"AmountModificationAllowed\": \"false\",\n\t\"EarlyPaymetAllowed\": \"true\",\n\t\"GrntedPmtReqd\": \"false\",\n\t\"Amount\": \"510\",\n\t\"Creditor\": {\n\t\t\"BIC\": \"JSBLPKKA\",\n\t\t\"Name\": \"Punjab Ring Road Authority\",\n\t\t\"TerminalLabel\": \"946193075\",\n\t\t\"Town\": \"Lahore\",\n\t\t\"MCC\": \"1520\",\n\t\t\"ALIAS\": \"946193075\",\n\t\t\"DBA\": \"LRRA Collection\",\n\t\t\"phoneNumber\": \"+92-3060961579\",\n\t\t\"MobileNumber\": \"+92-3060961579\",\n\t\t\"email\": \"info@prra.punjab.gov.pk\",\n\t\t\"Dept\": \"MERCHANT\",\n\t\t\"ChannelType\": \"WEBS\",\n\t\t\"Website\": \"http://prra.punjab.gov.pk\",\n\t\t\"Longitude\": \"74.2970806\",\n\t\t\"Latitude\": \"31.6003248\",\n\t\t\"ChannelID\": \"400\",\n\t\t\"IBAN\": \"PK77JSBL9999903060961579\",\n\t\t\"purposeOfTranx\": \"5818\",\n\t\t\"TAXID\": \"0705123729\",\n\t\t\"contextOfTranx\": \"Digital Goods\",\n\t\t\"DuePyblAmt\": \"510.0\",\n\t\t\"AdjustmentAmount\": \"510.0\",\n\t\t\"AdjustmentReason\": \"SCFE\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/p2m/outgoingService/initiateRTP",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"p2m",
+						"outgoingService",
+						"initiateRTP"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

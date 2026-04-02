@@ -1,0 +1,33 @@
+{
+	"info": {
+		"_postman_id": "4c8299c1-fc9a-4192-8790-b79f97435ef7",
+		"name": "mpginquiryservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "titlefetch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://10.111.201.175:7081/mpginquiryservice/v1/titlefetch",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"mpginquiryservice",
+						"v1",
+						"titlefetch"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

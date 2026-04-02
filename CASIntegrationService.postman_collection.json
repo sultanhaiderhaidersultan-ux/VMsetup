@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "69329efb-4e1c-458b-aa02-527d07d928c8",
+		"name": "CASIntegrationService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getDefaultAccountByAlias",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Access_token",
+						"value": "mpg123",
+						"type": "default"
+					},
+					{
+						"key": "X-Request-Id",
+						"value": "123456-123-2352",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"processingCode\": \"211013\",\r\n    \"merchantType\": \"0098\",\r\n    \"aliasType\": \"TILL\",\r\n    \"aliasValue\": \"946150173\",\r\n    \"area\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/casintegrationservice/v1/getDefaultAccountByAlias",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"casintegrationservice",
+						"v1",
+						"getDefaultAccountByAlias"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "d47e855a-8db0-4349-948a-beeb251a00af",
+		"name": "P2MPaymentService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api/p2m/QRpayment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Access_token",
+						"value": "mpg123"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "03fd8af0-3eb6-4f03-a31b-9e826524df3f",
+						"disabled": true
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"processingCode\": \"211000\",\r\n    \"merchantType\": \"0098\",\r\n    \"amountAfterDueDate\": null,\r\n    \"amountWithinDueDate\": \"10000\",\r\n    \"bankImd\": \"623977\",\r\n    \"creditorIban\": \"PK02BPUN5010359409300011\",\r\n    \"creditorTitle\": \"BILAL KHAD STORE\",\r\n    \"debitorIban\": \"PK44JSBL9534000002849784\",\r\n    \"debitorTitle\": \"NAWAZ ALI\",\r\n    \"messageId\": \"BPUN2953260953389974|P2M\",\r\n    \"narration\": \"|||||||||||||||||BOP^BILAL KHAD STORE^PK02BPUN5010359409300011|\",\r\n    \"stan\": \"959065\",\r\n    \"transactionDate\": \"2026-01-29\",\r\n    \"transactionId\": \"JSBLMB01290953387093541\",\r\n    \"transactionTime\": \"095338\",\r\n    \"transmissionDatetime\": \"0129095338\",\r\n    \"personDetails\": {\r\n        \"CustomerLabel\": \"NAWAZ  ALI\",\r\n        \"EmailAdr\": \"nawazali0795@gmail.com\",\r\n        \"Latitude\": \"31.7974116\",\r\n        \"Longitude\": \"74.2548305\",\r\n        \"LoyalityNumb\": null,\r\n        \"MobNb\": \"+92-3211692859\",\r\n        \"Name\": \"NAWAZ  ALI\",\r\n        \"PhneNb\": \"+92-3211692859\",\r\n        \"PstlAdr\": \"MOHALLA KHRABA CHOURA RAJPUTAN\",\r\n        \"InstructionID\": null,\r\n        \"EndToEndId\": \"BOP2953260953386259\"\r\n    },\r\n    \"merchantDetails\": {\r\n        \"ALIAS\": \"901005901\",\r\n        \"BillRefNumber\": null,\r\n        \"ContextOfTransaction\": \"RSQR\",\r\n        \"DBA\": \"BILAL KHAD STORE\",\r\n        \"Dept\": \"900567020100590\",\r\n        \"EmailAdr\": null,\r\n        \"Latitude\": \"0.0\",\r\n        \"Longitude\": \"0.0\",\r\n        \"MCC\": \"7020\",\r\n        \"MerchantChannelTypeID\": \"400\",\r\n        \"MobNb\": null,\r\n        \"Name\": \"BILAL KHAD STORE\",\r\n        \"PhneNb\": null,\r\n        \"TaxID\": null,\r\n        \"QRNb\": null\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/api/p2m/QRpayment",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"api",
+						"p2m",
+						"QRpayment"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

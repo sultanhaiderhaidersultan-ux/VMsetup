@@ -1,0 +1,609 @@
+{
+	"info": {
+		"_postman_id": "7766ade7-d143-4032-9225-3dbd4736543e",
+		"name": "RAAST-MIS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "InboundTitleFetch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Sender-Participant-Code",
+						"value": "MEZNPKKA",
+						"type": "default"
+					},
+					{
+						"key": "X-Request-Id",
+						"value": "128900029",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"iban\" : \"PK85JSBL9170000001944485\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/validation/titlefetch",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"validation",
+						"titlefetch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BulkConvTFOutGoing",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Query-String",
+						"value": "",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MTI\" :\"\",\r\n    \"processingCode\" :\"\",\r\n    \"merchantType\"   :\"\",\r\n    \"valueDate\" :\"\",\r\n    \"bankImd\" :\"\",\r\n    \"dateTime\" :\"\",\r\n    \"accountNumbers.Item[]\" : [\"\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/bulkconvtfoutgoing/v1/request",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"bulkconvtfoutgoing",
+						"v1",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPG_ValidateStatusBulk",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Request-Id",
+						"value": "",
+						"type": "default"
+					},
+					{
+						"key": "X-Remote-Addr",
+						"value": "",
+						"type": "default"
+					},
+					{
+						"key": "Sender-Participant-Code",
+						"value": "",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://10.111.201.175:7081/api/instructions/validate/status",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"api",
+						"instructions",
+						"validate",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPG_ValidationServiceBulk",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MTI\" : \"\",\r\n\t\"batchId\" : \"\",\r\n\t\"valueDate\" : \"\", \r\n\t\"bankImd\" : \"\",\r\n\t\"merchantType\" : \"\",\r\n\t\"dateTime\" : \"\",\r\n\t\"instructions\" : { \r\n        \"item\" : [{ \r\n            \"purposeCode\":\"\",\r\n            \"customer\" : { \r\n                \"identification\" : {\r\n                    \"type\" : \"\",\r\n                    \"value\" : \"\"\r\n                }\r\n            } ,\r\n            \"iban\" : \"\" ,\r\n            \"customerName\" : \"\" \r\n        }\r\n        ]}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/mpg_validationservicebulk/v1/prevalidation",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"mpg_validationservicebulk",
+						"v1",
+						"prevalidation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGInquiryConvensionalService",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MTI\" : \"\",\r\n \"processingCode\" : \"\",\r\n \"merchantType\" : \"\",\r\n \"valueDate\" : \"\",\r\n \"bankImd\" : \"\",\r\n \"dateTime\" : \"\",\r\n \"accountNo\" : \"\",\r\n \"idtype\" : \"\",\r\n \"idvalue\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/mpginquiryconvensionalservice/v1/ConvTitleFetch",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"mpginquiryconvensionalservice",
+						"v1",
+						"ConvTitleFetch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGInquiryService",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Access_token",
+						"value": "mpg#1234",
+						"type": "default"
+					},
+					{
+						"key": "X-Request-ID",
+						"value": "123-9876-1234",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"processingCode\": \"630000\",\r\n    \"merchantType\": \"0098\",\r\n    \"requestId\": \"20260305122218500004\",\r\n    \"iban\": \"PK87SCBL0000001701746601\",\r\n    \"receivingBankImd\": \"627271\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/mpginquiryservice/v1/titlefetch",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"mpginquiryservice",
+						"v1",
+						"titlefetch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPG Management Service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"updateDb\" : \"\",\r\n    \"d\" : \"\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/mpg-mgmt/v1/logoff",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"mpg-mgmt",
+						"v1",
+						"logoff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGP2PNonPaymentService/getLimit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MsgId\" : \"\",\r\n    \"CreDtTm\" : \"\",\r\n    \"AcctId\" : \"\",\r\n    \"LmtCcy\" : \"\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/nonpaymentservice/getLimit",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"nonpaymentservice",
+						"getLimit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGP2PNonPaymentService/getPaymentCopy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"msgId\" : \"\",\r\n    \"transactionId\" : \"\",\r\n    \"transactionDate\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/nonpaymentservice/getPaymentCopy",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"nonpaymentservice",
+						"getPaymentCopy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGP2PNonPaymentService/getPaymentStatus",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionId\" : \"\",\r\n    \"creditorAgent\" : \"\",\r\n    \"transactionDate\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/nonpaymentservice/getPaymentStatus",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"nonpaymentservice",
+						"getPaymentStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGP2PNonPaymentService/reqForReturn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orgnlMsgId\" :\"\",\r\n    \"orgnlCreDtTm\" :\"\",\r\n    \"orgnlIntrBkSttlmDt\" :\"\",\r\n    \"returnCode\" :\"\",\r\n    \"returnReason\" :\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/nonpaymentservice/reqForReturn",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"nonpaymentservice",
+						"reqForReturn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGP2PNonPaymentService/returnPayment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"batchId\" : \"\",\r\n    \"transactionDate\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/nonpaymentservice/returnPayment",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"nonpaymentservice",
+						"returnPayment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGP2PNonPaymentService/setLimit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MsgId\" : \"\",\r\n    \"limitType\" : \"\",\r\n    \"accountId\" : \"\",\r\n    \"amount\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/nonpaymentservice/setLimit",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"nonpaymentservice",
+						"setLimit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGP2PPaymentService",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bankImd\" : \"\",\r\n    \"creditorIban\" : \"\",\r\n    \"creditorTitle\" : \"\",\r\n    \"debitorIban\" : \"\",\r\n    \"debitorTitle\" : \"\",\r\n    \"messageId\" : \"\",\r\n    \"stan\" : \"\",\r\n    \"transactionAmount\" : \"\",\r\n    \"transactionDate\" : \"\",\r\n    \"transactionId\" : \"\",\r\n    \"transactionTime\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/mpgpaymentservice/ibft",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"mpgpaymentservice",
+						"ibft"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGValidationService/validate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Request-Id",
+						"value": "",
+						"type": "default"
+					},
+					{
+						"key": "Sender-Participant-Code",
+						"value": "",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"batchId\" : \"\",\r\n\"valueDate\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/instructions/validate",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"instructions",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MPGValidationService/status",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Request-Id",
+						"value": "",
+						"type": "default"
+					},
+					{
+						"key": "Sender-Participant-Code",
+						"value": "",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://10.111.201.175:7081/instructions/status",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"instructions",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "P2MPIR",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"messageId\" : \"\",\r\n\"transactionId\" : \"\",\r\n\"Creditor\" : {\"BIC\" : \"\"} ,\r\n\"Debitor\" : {\"BIC\" : \"\"},\r\n\"MsgId\" : \"\",\r\n\"ModeOfRTP\" : \"\",\r\n\"bankImd\" : \"\",\r\n\"BizMsgIdr\" : \"\",\r\n\"ReqdExecutionDateTime\" : \"\",\r\n\"From\" : \"\",\r\n\"PmtInfId\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.111.201.175:7081/p2mpir/v1/paymentRequest",
+					"protocol": "http",
+					"host": [
+						"10",
+						"111",
+						"201",
+						"175"
+					],
+					"port": "7081",
+					"path": [
+						"p2mpir",
+						"v1",
+						"paymentRequest"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
