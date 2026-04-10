@@ -160,3 +160,22 @@ curl --location 'http://10.111.201.175:7081/p2mpir/v1/paymentRequest' \
 }'
 
 
+
+
+curl --location 'http://10.111.201.175:7081/BLBCredit/insertion' \
+--header 'Content-Type: application/json' \
+--data '{
+    "traceNo": "123456789",
+    "dateTime": "2024-04-10 12:00:00",
+    "mobileNo": "923001234567",
+    "transactionAmount": "1000.00",
+    "reserved1": "ReferenceData",
+    "reserved2": "ReconID",
+    "reserved4": "EndToEndID_001",
+    "reserved5": "MsgID_001",
+    "reserved6": "John Doe",
+    "reserved7": "PK00JSBL000012345678",
+    "reserved8": "TransactionRef",
+    "reserved9": "Purpose"
+}'
+
