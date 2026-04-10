@@ -1,0 +1,22 @@
+Host Reference	Key in Database	Purpose
+RAAST CAS	CAS_HOST_NAME	Called by all APIs in the CASIntegrationService (Alias lookup, Customer info).
+RAAST Auth	P2P_HOST_NAME	Called by all TokenAcquisition apps to refresh security tokens.
+Internal BLB	s-iib-cluster2.jsbl.com	Hardcoded in BLBCreditInsertionApp to forward credit payments to Digital Services.
+Core Banking	CORE_BANKING_IP	Called by payment and bulk processing flows for fund transfers.
+Local Bridge	localhost:443	Used as a local proxy or bridge in many subflows (e.g., postActivateAlias).
+
+
+
+
+sql
+SELECT PARAMETER_KEY, PARAMETER_VALUE 
+FROM CONFIGURATION_PARAMETER 
+WHERE PARAMETER_KEY LIKE '%HOST_NAME%' OR PARAMETER_KEY LIKE '%IP%';
+
+
+
+Verification SQL
+To see the exact IPs for the dynamic hosts, you can run:
+
+
+CAS_HOST_NAME', 'P2P_HOST_NAME', 'CORE_BANKING_IP', 'TF_HOST_NAME', 'INRT_HOST_NAME
